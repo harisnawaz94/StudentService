@@ -39,6 +39,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
     const classes = useStyles();
     const [dataVar, setDataVar] = useState(props.details);
+    const [dataSave, setDataSave] = useState([]);
     const [currentlyEditingObject, setCurrentlyEditingObject] = useState({});
     const [currentlyEditing, setCurrentlyEditing] = useState([]);
 
@@ -53,9 +54,19 @@ export default function CustomizedTables(props) {
         arr[editIdx] = !currentlyEditing[editIdx];
         setCurrentlyEditingObject(dataVar[editIdx]);
         setCurrentlyEditing(arr);
+        setDataSave(dataVar)
     }
     function handleChange(e, editIdx) {
-        console.log("handle change",e,editIdx);
+        let dataCopy = [];
+        let dar = {};
+        // eslint-disable-next-line
+        dataCopy = [...dataSave];
+        // eslint-disable-next-line
+        dar = { ...dataCopy[editIdx] };
+        dar[e.target.name] = e.target.value;
+        dataCopy[editIdx] = dar;
+        setCurrentlyEditingObject(dataCopy[editIdx]);
+        setDataSave(dataCopy);
     }
 
     function stopEditing(editIdx) {
