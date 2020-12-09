@@ -1,6 +1,6 @@
 # StudentService
 This a simple web application to show a list of students.
-A student has three properties: first name, last name, and matriculation number.
+A student has three properties: first name, last name, address and matriculation number.
 
 ## How to run
 Run the backend before the frontend. <br/>
@@ -20,13 +20,8 @@ Go to **front-end** directory and use command: <br/>
 `npm install` <br/>
 Start frontend using command: <br/>
 `npm start` <br/>
-It will start the frontend at port 3000 on your localhost and show a list of students.
+It will start the frontend at port 3000 on your localhost.
 
-# Tasks
-- Add another student field: **Address**, to store student address.
-- Implement student update feature so that you can update any student field from the frontend. 
-
-You can modify the project structure if you want and free to add additional libraries.
-
-## How to submit
-Fork this project. Please do not commit just after finishing all the work; instead, commit frequently. We would like to see your thought and working process. Once finished, please send us your repository link.
+# Tasks-completed
+- Added another student field: **Address**, to store student address.
+- Implemented student update feature so that you can update any student field from the frontend. 
