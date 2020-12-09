@@ -4,12 +4,7 @@ import de.fraunhofer.iem.StudentService.model.Student;
 import de.fraunhofer.iem.StudentService.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
@@ -27,11 +22,25 @@ public class StudentController {
         Collection<Student> students = this.studentService.getStudents();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
-    @PostMapping(path = "/update",consumes = "application/json",produces = "application/json")
+
+
+
+//The below endpoint updates the data when received from the frontend
+    @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Collection<Student>> setStudents(@RequestBody Student studentinput) {
-        Collection<Student> students = this.studentService.setStudents(studentinput);
-        return new ResponseEntity<>(students, HttpStatus.OK);
+        Student stdToBeUpdated;
+        int index = 0;
+        for (Student student: this.studentService.getStudents()) {
+            if(student.getMatriculationNumber().equals(studentinput.getMatriculationNumber())) {
+                student.setAddressRes(studentinput.getAddressRes());
+                student.setFirstName(studentinput.getFirstName());
+                student.setLastName(studentinput.getLastName());
+                break;
+            }
+            index++;
+        }
+        return new ResponseEntity<>(this.studentService.getStudents(), HttpStatus.OK);
 
     }
 }

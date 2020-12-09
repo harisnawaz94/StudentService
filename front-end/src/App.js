@@ -1,63 +1,13 @@
-import React, { Component } from "react";
-import { Container, Table } from "reactstrap";
+import React from "react";
+import Main from "./Main";
 
-
-class App extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {students: []};
-  }
-
-  componentDidMount(){
-    
-     fetch("/students", {
-      headers: {
-			  "Access-Control-Allow-Origin": "http://localhost:8080",
-			  "Accept": "application/json",
-			  "Content-Type": "application/json"
-			}
-     }).then(response =>
-      response
-        .json()
-        .then(data => this.setState({students: data}))
-    );
-    const r = 4;
-  }
-
-  render(){
-    const Students = this.state.students;
-
-    if (Students == undefined) {
-      return <p>Failed to load data.</p>;
-    }
-    const StudentList = Students.map(Student => {
-      return (
-        <tr scope="row">
-          <td>{Student.firstName}</td>
-          <td>{Student.lastName}</td>
-          <td>{Student.matriculationNumber}</td>
-        </tr>
-      );
-    });
-
-    return (
-      <div>
-        <Container fluid>
-        <Table>
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Mtr. Number</th>
-        </tr>
-      </thead>
-      <tbody>{StudentList}</tbody>
-    </Table>
-        </Container>
-      </div>
-    );
-  }
+export default function App() {
+  return (
+    <div>
+      <h1 align="center"> Fraunhofer IEM Student Job Task</h1>
+      <h4 align ="center">In this task we are going to display the data in a Material UI DataTable</h4>
+      <h4 align="center">and also making the fields editable from frontend</h4>
+      <Main/>
+    </div>
+  )
 }
-
-export default App;
