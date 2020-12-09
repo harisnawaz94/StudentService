@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from '@material-ui/core/Button';
-
+import CustomizedTables from "./Components/DataTable"
 
 class Main extends Component {
 
@@ -41,6 +41,9 @@ class Main extends Component {
                     <Button variant="contained" color="primary" onClick={() => { handleClick() }} details={this.state.students} >
                         Click to View Data
                     </Button>
+            </div>
+            <div hidden={this.state.showData}>
+                    <CustomizedTables details={Students} />
                 </div>
       </div>
     );
