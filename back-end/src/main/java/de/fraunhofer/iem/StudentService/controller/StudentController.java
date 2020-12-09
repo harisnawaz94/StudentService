@@ -5,7 +5,6 @@ import de.fraunhofer.iem.StudentService.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 
 @RestController
@@ -23,6 +22,7 @@ public class StudentController {
         Collection<Student> students = this.studentService.getStudents();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
+
 
 
 //The below endpoint updates the data when received from the frontend
