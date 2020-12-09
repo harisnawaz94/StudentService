@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,7 +42,11 @@ export default function CustomizedTables(props) {
     console.log(props.details)
     useEffect(() => {
             setDataVar(props.details)
-        }, [props.details]);
+    }, [props.details]);
+      
+    function handleClick(editIdx) {
+        console.log(editIdx);
+    }
 
   return (
     <TableContainer component={Paper}>
@@ -51,6 +57,8 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">LastName</StyledTableCell>
             <StyledTableCell align="right">Address</StyledTableCell>
             <StyledTableCell align="right">Matriculation Number</StyledTableCell>
+            <StyledTableCell align="right">Edit</StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,6 +68,9 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right">{d.lastName}</StyledTableCell>
               <StyledTableCell align="right">{d.addressRes}</StyledTableCell>
               <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
+              <StyledTableCell align="right">
+                    <Button id={index} variant="contained" color="inherit" onClick={() => { handleClick(index) }} > Edit Data</Button>
+                </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
