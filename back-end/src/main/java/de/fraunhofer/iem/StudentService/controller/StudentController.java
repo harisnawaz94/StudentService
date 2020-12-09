@@ -29,9 +29,18 @@ public class StudentController {
     @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Collection<Student>> setStudents(@RequestBody Student studentinput) {
-        System.out.println(studentinput);
-        Collection<Student> students = this.studentService.setStudents(studentinput);
-        return new ResponseEntity<>(students, HttpStatus.OK);
+        Student stdToBeUpdated;
+        int index = 0;
+        for (Student student: this.studentService.getStudents()) {
+            if(student.getMatriculationNumber().equals(studentinput.getMatriculationNumber())) {
+                student.setAddressRes(studentinput.getAddressRes());
+                student.setFirstName(studentinput.getFirstName());
+                student.setLastName(studentinput.getLastName());
+                break;
+            }
+            index++;
+        }
+        return new ResponseEntity<>(this.studentService.getStudents(), HttpStatus.OK);
 
     }
 }

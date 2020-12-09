@@ -43,7 +43,7 @@ export default function CustomizedTables(props) {
     const [currentlyEditingObject, setCurrentlyEditingObject] = useState({});
     const [currentlyEditing, setCurrentlyEditing] = useState([]);
 
-    console.log(props.details)
+    
     useEffect(() => {
             setCurrentlyEditing(new Array(props.details.length).fill(false));
             setDataVar(props.details)
@@ -73,9 +73,6 @@ export default function CustomizedTables(props) {
         dataVar[editIdx] = currentlyEditingObject;
         setDataVar(dataVar);
         setDataSave(dataVar);
-
-        var myJSON = JSON.stringify(dataVar[editIdx]);
-        console.log(myJSON, dataSave, dataVar)
         fetch("http://localhost:8080/update", {
             method: 'put',
               headers: {
@@ -143,15 +140,8 @@ export default function CustomizedTables(props) {
                                         />) : (
                                             <StyledTableCell align="right">{d.addressRes}</StyledTableCell>
                                         )}
-                                {
-                                    currentlyEditing[index] ? (
-                                        <TextField
-                                            name="matriculationNumber"
-                                            onChange={e => handleChange(e, index)}
-                                            value={currentlyEditingObject.matriculationNumber}
-                                        />) : (
-                                            <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
-                                        )}
+                                    
+                               <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
 
                                 {currentlyEditing[index] ? (
                                     <StyledTableCell align="right">
