@@ -39,11 +39,10 @@ class Main extends Component {
          <div align="center">
                     <Button variant="contained" color="primary" onClick={() => { handleClick() }} details={this.state.students} >
                         Click to View Data
-                    </Button>
-            
-            <div hidden={this.state.showData}>
+                    </Button>      
+          <div hidden={this.state.showData}>
                     <CustomizedTables details={Students} />
-                </div>
+          </div>
         </div>
         </div>
     );

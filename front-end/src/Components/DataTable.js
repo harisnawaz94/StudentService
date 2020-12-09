@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import DoneIcon from '@material-ui/icons/Done'
+import DoneIcon from '@material-ui/icons/Done';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -73,23 +73,22 @@ export default function CustomizedTables(props) {
         dataVar[editIdx] = currentlyEditingObject;
         setDataVar(dataVar);
         setDataSave(dataVar);
-        var myJSON = JSON.stringify(dataVar);
-        // eslint-disable-next-line
+
+        var myJSON = JSON.stringify(dataVar[editIdx]);
+        console.log(myJSON, dataSave, dataVar)
         fetch("http://localhost:8080/update", {
-            method: 'POST',
-            headers: {
-                "Access-Control-Allow-Origin": "http://localhost:8080",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: myJSON
-        }).then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            method: 'put',
+              headers: {
+			  "Access-Control-Allow-Origin": "http://localhost:8080",
+			  "Accept": "application/json",
+			  "Content-Type": "application/json"
+			},
+            body: JSON.stringify(dataVar[editIdx])
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            console.log('Created Gist:',data);
+        });        
         // normal view
         let arr = [...currentlyEditing];
         arr[editIdx] = !currentlyEditing[editIdx];
