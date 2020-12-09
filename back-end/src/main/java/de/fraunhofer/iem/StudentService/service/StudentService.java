@@ -25,4 +25,9 @@ public class StudentService {
     public Collection<Student> getStudents() {
         return students;
     }
+    public Collection<Student> setStudents(Student studentsdata){
+
+        this.students.add(studentsdata);
+        return students;
+    }
 }
