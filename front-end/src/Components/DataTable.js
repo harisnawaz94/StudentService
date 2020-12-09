@@ -8,7 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-
+import TextField from '@material-ui/core/TextField';
+import DoneIcon from '@material-ui/icons/Done'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,15 +39,31 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
     const classes = useStyles();
     const [dataVar, setDataVar] = useState(props.details);
+    const [currentlyEditingObject, setCurrentlyEditingObject] = useState({});
+    const [currentlyEditing, setCurrentlyEditing] = useState([]);
 
     console.log(props.details)
     useEffect(() => {
+            setCurrentlyEditing(new Array(props.details.length).fill(false));
             setDataVar(props.details)
     }, [props.details]);
       
     function handleClick(editIdx) {
-        console.log(editIdx);
+        let arr = [...currentlyEditing];
+        arr[editIdx] = !currentlyEditing[editIdx];
+        setCurrentlyEditingObject(dataVar[editIdx]);
+        setCurrentlyEditing(arr);
     }
+    function handleChange(e, editIdx) {
+        console.log("handle change",e,editIdx);
+    }
+
+    function stopEditing(editIdx) {
+        let arr = [...currentlyEditing];
+        arr[editIdx] = !currentlyEditing[editIdx];
+        setCurrentlyEditing(arr);
+    }
+
 
   return (
     <TableContainer component={Paper}>
@@ -62,15 +79,60 @@ export default function CustomizedTables(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataVar.map((d,index) => (
-            <StyledTableRow key={index}>
-              <StyledTableCell align="left">{d.firstName}</StyledTableCell>
-              <StyledTableCell align="right">{d.lastName}</StyledTableCell>
-              <StyledTableCell align="right">{d.addressRes}</StyledTableCell>
-              <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
-              <StyledTableCell align="right">
-                    <Button id={index} variant="contained" color="inherit" onClick={() => { handleClick(index) }} > Edit Data</Button>
-                </StyledTableCell>
+          {dataVar.map((d, index) => (
+                            < StyledTableRow key={index} >
+                                { // eslint-disable-next-line
+                                    //if in the editing mode enables the textfield else show the Tablecell as it is
+                                    currentlyEditing[index] ? (
+
+                                        <TextField
+                                            name="firstName"
+                                            onChange={(e) => handleChange(e, index)}
+                                            value={currentlyEditingObject.firstName}
+                                        />
+                                    ) : (
+                                            <StyledTableCell align="left">{d.firstName}</StyledTableCell>
+                                        )}
+                                {
+                                    currentlyEditing[index] ? (
+                                        <TextField
+                                            name="lastName"
+                                            onChange={(e) => handleChange(e, index)}
+                                            value={currentlyEditingObject.lastName}
+
+                                        />) : (
+                                            <StyledTableCell align="right">{d.lastName}</StyledTableCell>
+                                        )}
+                                {
+                                    currentlyEditing[index] ? (
+                                        <TextField
+                                            name="addressRes"
+                                            onChange={(e) => handleChange(e, index)}
+                                            value={currentlyEditingObject.addressRes}
+                                        />) : (
+                                            <StyledTableCell align="right">{d.addressRes}</StyledTableCell>
+                                        )}
+                                {
+                                    currentlyEditing[index] ? (
+                                        <TextField
+                                            name="matriculationNumber"
+                                            onChange={e => handleChange(e, index)}
+                                            value={currentlyEditingObject.matriculationNumber}
+                                        />) : (
+                                            <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
+                                        )}
+
+                                {currentlyEditing[index] ? (
+                                    <StyledTableCell align="right">
+                                        <Button id={index} variant="contained" color="inherit" onClick={() => stopEditing(index)}>
+                                            <DoneIcon />
+                                        </Button>
+                                    </StyledTableCell>
+                                ) : (
+                                        <StyledTableCell align="right">
+                                            <Button id={index} variant="contained" color="inherit" onClick={() => { handleClick(index) }} > Edit Data</Button>
+                                        </StyledTableCell>
+                                    )}
             </StyledTableRow>
           ))}
         </TableBody>
