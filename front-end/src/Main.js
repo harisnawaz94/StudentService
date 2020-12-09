@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Container, Table } from "reactstrap";
+import Button from '@material-ui/core/Button';
 
 
 class Main extends Component {
 
   constructor(props){
     super(props);
-    this.state = {students: []};
+    this.state = {students: [], showData: true};
   }
 
   componentDidMount(){
@@ -31,32 +31,17 @@ class Main extends Component {
     if (Students === undefined) {
       return <p>Failed to load data.</p>;
     }
-    const StudentList = Students.map(Student => {
-      return (
-        <tr>
-          <td>{Student.firstName}</td>
-              <td>{Student.lastName}</td>
-              <td>{Student.addressRes}</td>
-              <td>{Student.matriculationNumber}</td>
-        </tr>
-      );
-    });
-
+   const handleClick = () => {
+       this.setState({ showData: !this.state.showData });
+       console.log("handleClick");
+        }
     return (
       <div>
-        <Container fluid>
-        <Table>
-      <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Mtr. Number</th>
-        </tr>
-      </thead>
-      <tbody>{StudentList}</tbody>
-    </Table>
-        </Container>
+         <div align="center">
+                    <Button variant="contained" color="primary" onClick={() => { handleClick() }} details={this.state.students} >
+                        Click to View Data
+                    </Button>
+                </div>
       </div>
     );
   }
