@@ -42,20 +42,22 @@ export default function CustomizedTables(props) {
     const [dataSave, setDataSave] = useState([]);
     const [currentlyEditingObject, setCurrentlyEditingObject] = useState({});
     const [currentlyEditing, setCurrentlyEditing] = useState([]);
-
-    
+   
     useEffect(() => {
             setCurrentlyEditing(new Array(props.details.length).fill(false));
             setDataVar(props.details)
     }, [props.details]);
-      
+
+//This function makes the row editable with TextFields  
     function handleClick(editIdx) {
+        //eslint-disable-next-line
         let arr = [...currentlyEditing];
         arr[editIdx] = !currentlyEditing[editIdx];
         setCurrentlyEditingObject(dataVar[editIdx]);
         setCurrentlyEditing(arr);
         setDataSave(dataVar)
     }
+// This function handles update made on a particular row 
     function handleChange(e, editIdx) {
         let dataCopy = [];
         let dar = {};
@@ -68,11 +70,12 @@ export default function CustomizedTables(props) {
         setCurrentlyEditingObject(dataCopy[editIdx]);
         setDataSave(dataCopy);
     }
-
+// This function when clicked the done button updates the row in frontend and backend
     function stopEditing(editIdx) {
         dataVar[editIdx] = currentlyEditingObject;
         setDataVar(dataVar);
         setDataSave(dataVar);
+    //posts the updated data to the backend
         fetch("http://localhost:8080/update", {
             method: 'put',
               headers: {
@@ -86,7 +89,8 @@ export default function CustomizedTables(props) {
         }).then(function(data) {
             console.log('Created Gist:',data);
         });        
-        // normal view
+    // normal view
+        //eslint-disable-next-line
         let arr = [...currentlyEditing];
         arr[editIdx] = !currentlyEditing[editIdx];
         setCurrentlyEditing(arr);
@@ -102,7 +106,7 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">LastName</StyledTableCell>
             <StyledTableCell align="right">Address</StyledTableCell>
             <StyledTableCell align="right">Matriculation Number</StyledTableCell>
-            <StyledTableCell align="right">Edit</StyledTableCell>
+            <StyledTableCell align="center">Edit</StyledTableCell>
 
           </TableRow>
         </TableHead>
@@ -144,13 +148,13 @@ export default function CustomizedTables(props) {
                                <StyledTableCell align="right">{d.matriculationNumber}</StyledTableCell>
 
                                 {currentlyEditing[index] ? (
-                                    <StyledTableCell align="right">
+                                    <StyledTableCell align="center">
                                         <Button id={index} variant="contained" color="inherit" onClick={() => stopEditing(index)}>
                                             <DoneIcon />
                                         </Button>
                                     </StyledTableCell>
                                 ) : (
-                                        <StyledTableCell align="right">
+                                        <StyledTableCell align="center">
                                             <Button id={index} variant="contained" color="inherit" onClick={() => { handleClick(index) }} > Edit Data</Button>
                                         </StyledTableCell>
                                     )}

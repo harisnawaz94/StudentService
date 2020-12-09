@@ -25,7 +25,7 @@ public class StudentController {
     }
 
 
-
+//The below endpoint updates the data when received from the frontend
     @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Collection<Student>> setStudents(@RequestBody Student studentinput) {

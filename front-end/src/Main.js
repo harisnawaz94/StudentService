@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from '@material-ui/core/Button';
 import CustomizedTables from "./Components/DataTable"
-
+//eslint-disable
 class Main extends Component {
 
   constructor(props){
