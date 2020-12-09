@@ -70,6 +70,27 @@ export default function CustomizedTables(props) {
     }
 
     function stopEditing(editIdx) {
+        dataVar[editIdx] = currentlyEditingObject;
+        setDataVar(dataVar);
+        setDataSave(dataVar);
+        var myJSON = JSON.stringify(dataVar);
+        // eslint-disable-next-line
+        fetch("http://localhost:8080/update", {
+            method: 'POST',
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:8080",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: myJSON
+        }).then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        // normal view
         let arr = [...currentlyEditing];
         arr[editIdx] = !currentlyEditing[editIdx];
         setCurrentlyEditing(arr);
