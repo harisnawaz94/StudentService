@@ -13,11 +13,11 @@ public class StudentService {
 
     public StudentService() {
         students = new ArrayList<>() {{
-            add(new Student("Sam", "Wart", 111111L) {
+            add(new Student("Sam", "Wart", "peterHW",111111L) {
             });
-            add(new Student("Bill", "Beggins", 222222L) {
+            add(new Student("Bill", "Beggins", "VogeliusW",222222L) {
             });
-            add(new Student("Stuward", "Gil", 333333L) {
+            add(new Student("Stuward", "Gil", "MersinW",333333L) {
             });
         }};
     }
