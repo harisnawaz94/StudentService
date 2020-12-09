@@ -33,7 +33,6 @@ class Main extends Component {
     }
    const handleClick = () => {
        this.setState({ showData: !this.state.showData });
-       console.log("handleClick");
         }
     return (
       <div>
@@ -41,11 +40,12 @@ class Main extends Component {
                     <Button variant="contained" color="primary" onClick={() => { handleClick() }} details={this.state.students} >
                         Click to View Data
                     </Button>
-            </div>
+            
             <div hidden={this.state.showData}>
                     <CustomizedTables details={Students} />
                 </div>
-      </div>
+        </div>
+        </div>
     );
   }
 }
